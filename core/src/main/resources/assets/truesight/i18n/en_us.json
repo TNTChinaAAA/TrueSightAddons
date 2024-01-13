@@ -1,0 +1,10 @@
+{
+  "truesight": {
+    "settings": {
+      "name": "TrueSight",
+      "enabled": {
+        "name": "Enabled"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "priority": 1001,
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "1.8.9-truesight.refmap.json",
+  "package": "net.labymod.addons.truesight.v1_8_9.mixin.mixins",
+  "verbose": false,
+  "minVersion": "0.6.6",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "MixinGuiIngame",
+    "MixinMinecraft",
+    "MixinRender",
+    "MixinRendererLivingEntity"
+  ]
+}
