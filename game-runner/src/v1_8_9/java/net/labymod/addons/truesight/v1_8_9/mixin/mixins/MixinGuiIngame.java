@@ -2,8 +2,8 @@ package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
 import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.labymod.addons.truesight.v1_8_9.GuiUtil;
-import net.labymod.addons.truesight.v1_8_9.Module;
-import net.labymod.addons.truesight.v1_8_9.TNTChina;
+import net.labymod.addons.truesight.core.Module;
+import net.labymod.addons.truesight.core.TNTChina;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiIngame;
@@ -31,9 +31,9 @@ public abstract class MixinGuiIngame extends Gui {
                 int height = sr.getScaledHeight();
                 GlStateManager.pushMatrix();
                 AtomicInteger index = new AtomicInteger();
-                int i = height - 2 - TNTChina.MODULES.size() * 12;
+                int i = height - 2 - TNTChina.RENDER_MODULES.size() * 12;
 
-                for (Module m : TNTChina.MODULES) {
+                for (Module m : TNTChina.RENDER_MODULES) {
                     int color = TNTChina.rainbow(index.get() * 320);
                     int x = 2;
                     String str = m.getName() + ": " + (m.getState() ? "Enabled" : "Disabled");

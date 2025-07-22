@@ -4,6 +4,20 @@
       "name": "TrueSight",
       "enabled": {
         "name": "Enabled"
+      },
+      "esp": {
+        "name": "ESP"
+      },
+      "trueSight": {
+        "name": "TrueSight"
+      },
+      "autoTool": {
+        "name": "AutoTool"
+      },
+      "header": {
+        "features": {
+          "name": "Features"
+        }
       }
     }
   }

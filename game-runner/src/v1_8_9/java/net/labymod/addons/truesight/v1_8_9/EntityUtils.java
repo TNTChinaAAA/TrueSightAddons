@@ -3,9 +3,11 @@ package net.labymod.addons.truesight.v1_8_9;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.scoreboard.ScorePlayerTeam;
 import net.minecraft.scoreboard.Team;
+import java.awt.*;
 
 public class EntityUtils {
     public static Minecraft mc = Minecraft.getMinecraft();
@@ -15,12 +17,26 @@ public class EntityUtils {
     public static boolean targetAnimals = false;
     public static boolean targetDead = true;
 
+    public static final Color getColor(Entity entity) {
+      if (entity instanceof EntityLivingBase) {
+        EntityLivingBase entityLivingBase = (EntityLivingBase) entity;
+
+        if (entityLivingBase.hurtTime > 0) {
+          return Color.RED;
+        }
+
+        return new Color(18, 144, 195);
+      }
+
+      return new Color(255, 255, 255);
+    }
+
     public static boolean isSelected(Entity entity, boolean canAttackCheck) {
         if (entity instanceof net.minecraft.entity.EntityLivingBase && (targetDead || entity.isEntityAlive()) && entity != mc.thePlayer && (
                 targetInvisible || !entity.isInvisible())) {
 
-            if (targetPlayer && entity instanceof EntityPlayer) {
-                return true;
+            if (targetPlayer && entity instanceof EntityPlayer player) {
+                return !(player.getName().contains("NPC") | player.isSpectator());
             }
 
             return ((targetMobs && isMob(entity)) || (targetAnimals && isAnimal(entity)));
