@@ -13,6 +13,7 @@
     "MixinGuiIngame",
     "MixinMinecraft",
     "MixinRender",
-    "MixinRendererLivingEntity"
+    "MixinRendererLivingEntity",
+    "MixinEntityLivingBase"
   ]
 }

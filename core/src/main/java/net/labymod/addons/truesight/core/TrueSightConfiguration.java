@@ -28,6 +28,10 @@ public class TrueSightConfiguration extends AddonConfig {
             TNTChina.TRUESIGHT.toggle();
     });
 
+    @SettingSection("mouseDelayFix")
+    @SwitchSetting
+    private final ConfigProperty<Boolean> mouseDelayFix = new ConfigProperty<>(true);
+
     @Override
     public ConfigProperty<Boolean> enabled() {
         return this.enabled;
@@ -43,5 +47,9 @@ public class TrueSightConfiguration extends AddonConfig {
 
     public ConfigProperty<Boolean> getAutoTool() {
       return autoTool;
+    }
+
+    public ConfigProperty<Boolean> getMouseDelayFix() {
+      return mouseDelayFix;
     }
 }

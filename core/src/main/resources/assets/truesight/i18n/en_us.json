@@ -14,9 +14,15 @@
       "autoTool": {
         "name": "AutoTool"
       },
+      "mouseDelayFix": {
+        "name": "Mouse Delay Fix"
+      },
       "header": {
         "features": {
           "name": "Features"
+        },
+        "mouseDelayFix": {
+          "name": "Mouse Delay Fix"
         }
       }
     }
