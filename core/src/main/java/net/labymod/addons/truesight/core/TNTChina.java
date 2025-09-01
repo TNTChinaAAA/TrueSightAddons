@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class TNTChina {
 
-    public static final String MOD_VERSION = "1.0.1";
+    public static final String MOD_VERSION = "1.0.2";
     public static final String MOD_NAME = "TrueSight";
     public static final String MOD_MODID = "true-sight";
     public static final String MOD_URL = "https://github.com/TNTChinaAAA/TrueSightAddons";
