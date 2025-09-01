@@ -1,5 +1,8 @@
 accessWidener v1 named
 
+# package-private
+# accessible class net/minecraft/client/render/block/BlockModelRenderer$AmbientOcclusionCalculator
+
 accessible field net/minecraft/client/renderer/entity/RenderManager renderPosX D
 accessible field net/minecraft/client/renderer/entity/RenderManager renderPosY D
 accessible field net/minecraft/client/renderer/entity/RenderManager renderPosZ D

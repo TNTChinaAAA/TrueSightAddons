@@ -157,6 +157,7 @@ public abstract class MixinMinecraft {
       }
     }
 
+    //TODO: NoHitFix
     private static final String TARGET = "Lnet/minecraft/client/settings/KeyBinding;setKeyBindState(IZ)V";
     @Redirect(method="runTick", at=@At(value="INVOKE", target=TARGET))
     public void runTick_setKeyBindState(int keybind, boolean state) {

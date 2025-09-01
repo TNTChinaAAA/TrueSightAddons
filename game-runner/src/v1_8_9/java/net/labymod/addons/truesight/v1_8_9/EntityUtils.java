@@ -1,5 +1,6 @@
 package net.labymod.addons.truesight.v1_8_9;
 
+import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
@@ -36,7 +37,12 @@ public class EntityUtils {
                 targetInvisible || !entity.isInvisible())) {
 
             if (targetPlayer && entity instanceof EntityPlayer player) {
-                return !(player.getName().contains("NPC") | player.isSpectator());
+                return !player.getDisplayName().getFormattedText().contains("[NPC]") && (
+                    !TrueSightAddon.addon.configuration().getEsp().getAttackCheck().get()
+                        .booleanValue() || canAttackCheck)// && !player.isSpectator()
+                ;
+            } else {
+              if (TrueSightAddon.addon.configuration().getEsp().getOnlyPlayer().get().booleanValue()) return false;
             }
 
             return ((targetMobs && isMob(entity)) || (targetAnimals && isAnimal(entity)));

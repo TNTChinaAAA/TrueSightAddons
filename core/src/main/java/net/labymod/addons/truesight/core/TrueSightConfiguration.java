@@ -1,5 +1,6 @@
 package net.labymod.addons.truesight.core;
 
+import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.configuration.loader.annotation.ConfigName;
@@ -9,6 +10,7 @@ import net.labymod.api.configuration.settings.annotation.SettingSection;
 @ConfigName("settings")
 public class TrueSightConfiguration extends AddonConfig {
 
+    //@SettingSection("truesightAddon")
     @SwitchSetting
     private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
 
@@ -19,9 +21,7 @@ public class TrueSightConfiguration extends AddonConfig {
     });
 
     @SwitchSetting
-    private final ConfigProperty<Boolean> esp = new ConfigProperty<>(true).addChangeListener((type, oldValue, newValue) -> {
-            TNTChina.ESP.toggle();
-    });
+    private final ESPSubSetting esp = new ESPSubSetting();
 
     @SwitchSetting
     private final ConfigProperty<Boolean> trueSight = new ConfigProperty<>(true).addChangeListener((type, oldValue, newValue) -> {
@@ -37,19 +37,19 @@ public class TrueSightConfiguration extends AddonConfig {
         return this.enabled;
     }
 
-    public ConfigProperty<Boolean> getEsp() {
-      return esp;
+    public ESPSubSetting getEsp() {
+      return this.esp;
     }
 
     public ConfigProperty<Boolean> getTrueSight() {
-      return trueSight;
+      return this.trueSight;
     }
 
     public ConfigProperty<Boolean> getAutoTool() {
-      return autoTool;
+      return this.autoTool;
     }
 
     public ConfigProperty<Boolean> getMouseDelayFix() {
-      return mouseDelayFix;
+      return this.mouseDelayFix;
     }
 }
