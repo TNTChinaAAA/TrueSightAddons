@@ -2,6 +2,7 @@ package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
 import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.labymod.addons.truesight.core.module.esp.EnumESPMode;
+import net.labymod.addons.truesight.core.module.truesight.TrueSightSubSetting;
 import net.labymod.addons.truesight.v1_8_9.RenderUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -36,8 +37,9 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
             enabled = TrueSightAddon.addon.configuration().enabled().get().booleanValue();
         }
 
+        TrueSightSubSetting trueSightSubSetting = TrueSightAddon.addon.configuration().getTrueSight();
         boolean visible = !entitylivingbaseIn.isInvisible();
-        boolean semiVisible = (!visible && (!entitylivingbaseIn.isInvisibleToPlayer((EntityPlayer) (Minecraft.getMinecraft()).thePlayer) || (TNTChina.TRUESIGHT.getState() && enabled)));
+        boolean semiVisible = (!visible && (!entitylivingbaseIn.isInvisibleToPlayer((EntityPlayer) (Minecraft.getMinecraft()).thePlayer) || (TNTChina.TRUESIGHT.getState() && enabled && (!trueSightSubSetting.getOnlyPlayer().get().booleanValue() || entitylivingbaseIn instanceof EntityPlayer))));
         boolean attackCheck = entitylivingbaseIn instanceof EntityPlayer pl1 && Minecraft.getMinecraft().thePlayer.canAttackPlayer(pl1);
 
         //entitylivingbaseIn.
@@ -56,7 +58,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 alphaFunc(516, 0.003921569F);
             }
 
-            if (TNTChina.ESP.getState() && enabled && TrueSightAddon.addon.configuration().getEsp().getEspMode() == EnumESPMode.OUTLINE && EntityUtils.isSelected((Entity) entitylivingbaseIn, attackCheck)) {
+            if (TNTChina.ESP.getState() && enabled && TrueSightAddon.addon.configuration().getEsp().enabled().get().booleanValue() && TrueSightAddon.addon.configuration().getEsp().getEspMode() == EnumESPMode.OUTLINE && EntityUtils.isSelected((Entity) entitylivingbaseIn, attackCheck)) {
                 // WireFrame
                 /*if (entitylivingbaseIn instanceof EntityPlayer al) {
                     TrueSightAddon.addon.logger().info(al.getDisplayName().getFormattedText());

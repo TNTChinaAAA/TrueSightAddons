@@ -1,6 +1,7 @@
 package net.labymod.addons.truesight.core;
 
 import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
+import net.labymod.addons.truesight.core.module.truesight.TrueSightSubSetting;
 import net.labymod.api.addon.AddonConfig;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.configuration.loader.annotation.ConfigName;
@@ -12,11 +13,11 @@ public class TrueSightConfiguration extends AddonConfig {
 
     //@SettingSection("truesightAddon")
     @SwitchSetting
-    private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true);
+    private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(Boolean.TRUE);
 
     @SettingSection("features")
     @SwitchSetting
-    private final ConfigProperty<Boolean> autoTool = new ConfigProperty<>(true).addChangeListener((type, oldValue, newValue) -> {
+    private final ConfigProperty<Boolean> autoTool = new ConfigProperty<>(Boolean.FALSE).addChangeListener((type, oldValue, newValue) -> {
             TNTChina.AUTOTOOL.toggle();
     });
 
@@ -24,13 +25,11 @@ public class TrueSightConfiguration extends AddonConfig {
     private final ESPSubSetting esp = new ESPSubSetting();
 
     @SwitchSetting
-    private final ConfigProperty<Boolean> trueSight = new ConfigProperty<>(true).addChangeListener((type, oldValue, newValue) -> {
-            TNTChina.TRUESIGHT.toggle();
-    });
+    private final TrueSightSubSetting truesight = new TrueSightSubSetting();
 
     @SettingSection("mouseDelayFix")
     @SwitchSetting
-    private final ConfigProperty<Boolean> mouseDelayFix = new ConfigProperty<>(true);
+    private final ConfigProperty<Boolean> mouseDelayFix = new ConfigProperty<>(Boolean.TRUE);
 
     @Override
     public ConfigProperty<Boolean> enabled() {
@@ -38,11 +37,11 @@ public class TrueSightConfiguration extends AddonConfig {
     }
 
     public ESPSubSetting getEsp() {
-      return this.esp;
+        return this.esp;
     }
 
-    public ConfigProperty<Boolean> getTrueSight() {
-      return this.trueSight;
+    public TrueSightSubSetting getTrueSight() {
+      return this.truesight;
     }
 
     public ConfigProperty<Boolean> getAutoTool() {

@@ -17,14 +17,17 @@
           }
         },
         "onlyPlayer": {
-          "name": "Only Player"
+          "name": "Only ESP on Players"
         },
         "attackCheck": {
           "name": "Attack Check"
         }
       },
-      "trueSight": {
-        "name": "TrueSight"
+      "truesight": {
+        "name": "TrueSight",
+        "onlyPlayer": {
+          "name": "Only TrueSight on Players"
+        }
       },
       "autoTool": {
         "name": "AutoTool"

@@ -14,9 +14,9 @@ public class KeyLoader {
 
     public KeyLoader() {
         moduleKeyBindings.add(new ModuleKeyBinding(TNTChina.ESP, new KeyBinding("ESP", TNTChina.ESP.getKey(), "TrueSight"), TrueSightAddon.addon.configuration()
-            .getEsp().getEnabled()));
+            .getEsp().enabled()));
         moduleKeyBindings.add(new ModuleKeyBinding(TNTChina.TRUESIGHT, new KeyBinding("TrueSight", TNTChina.TRUESIGHT.getKey(), "TrueSight"), TrueSightAddon.addon.configuration()
-            .getTrueSight()));
+            .getTrueSight().enabled()));
         moduleKeyBindings.add(new ModuleKeyBinding(TNTChina.AUTOTOOL, new KeyBinding("TrueSight", TNTChina.AUTOTOOL.getKey(), "TrueSight"), TrueSightAddon.addon.configuration()
             .getAutoTool()));
 

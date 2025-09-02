@@ -17,8 +17,8 @@ public class TrueSightAddon extends LabyAddon<TrueSightConfiguration> {
         this.registerCommand(new ExamplePingCommand());
         TrueSightAddon.addon = this;
         TNTChina.RENDER_MODULES_MAP.put(TNTChina.AUTOTOOL, this.configuration().getAutoTool());
-        TNTChina.RENDER_MODULES_MAP.put(TNTChina.ESP, this.configuration().getEsp().getEnabled());
-        TNTChina.RENDER_MODULES_MAP.put(TNTChina.TRUESIGHT, this.configuration().getTrueSight());
+        TNTChina.RENDER_MODULES_MAP.put(TNTChina.ESP, this.configuration().getEsp().enabled());
+        TNTChina.RENDER_MODULES_MAP.put(TNTChina.TRUESIGHT, this.configuration().getTrueSight().enabled());
         this.logger().info("Enabled TrueSight Addon");
     }
 
