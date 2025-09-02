@@ -1,6 +1,7 @@
 package net.labymod.addons.truesight.v1_8_9;
 
 import net.labymod.addons.truesight.core.TrueSightAddon;
+import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetworkPlayerInfo;
 import net.minecraft.entity.Entity;
@@ -26,7 +27,7 @@ public class EntityUtils {
           return Color.RED;
         }
 
-        return new Color(18, 144, 195);
+        return new Color(TrueSightAddon.addon.configuration().getEsp().getEntityColor().get().intValue());
       }
 
       return new Color(255, 255, 255);
@@ -37,10 +38,11 @@ public class EntityUtils {
                 targetInvisible || !entity.isInvisible())) {
 
             if (targetPlayer && entity instanceof EntityPlayer player) {
-                return !player.getDisplayName().getFormattedText().contains("[NPC]") && (
-                    !TrueSightAddon.addon.configuration().getEsp().getAttackCheck().get()
-                        .booleanValue() || canAttackCheck)// && !player.isSpectator()
-                ;
+              ESPSubSetting espSubSetting = TrueSightAddon.addon.configuration().getEsp();
+
+                return (espSubSetting.getTargetNPC().get().booleanValue() || !player.getDisplayName().getFormattedText().contains("[NPC]")) &&
+                    (!espSubSetting.getAttackCheck().get().booleanValue() || canAttackCheck); // && !player.isSpectator()
+
             } else {
               if (TrueSightAddon.addon.configuration().getEsp().getOnlyPlayer().get().booleanValue()) return false;
             }

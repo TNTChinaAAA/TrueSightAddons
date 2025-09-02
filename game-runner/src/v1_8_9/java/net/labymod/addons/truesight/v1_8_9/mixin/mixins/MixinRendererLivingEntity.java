@@ -32,12 +32,13 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
     @Overwrite
     protected <T extends net.minecraft.entity.EntityLivingBase> void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
         boolean enabled = false;
+        TrueSightAddon addon = TrueSightAddon.addon;
 
-        if (TrueSightAddon.addon != null) {
-            enabled = TrueSightAddon.addon.configuration().enabled().get().booleanValue();
+        if (addon != null) {
+            enabled = addon.configuration().enabled().get().booleanValue();
         }
 
-        TrueSightSubSetting trueSightSubSetting = TrueSightAddon.addon.configuration().getTrueSight();
+        TrueSightSubSetting trueSightSubSetting = addon.configuration().getTrueSight();
         boolean visible = !entitylivingbaseIn.isInvisible();
         boolean semiVisible = (!visible && (!entitylivingbaseIn.isInvisibleToPlayer((EntityPlayer) (Minecraft.getMinecraft()).thePlayer) || (TNTChina.TRUESIGHT.getState() && enabled && (!trueSightSubSetting.getOnlyPlayer().get().booleanValue() || entitylivingbaseIn instanceof EntityPlayer))));
         boolean attackCheck = entitylivingbaseIn instanceof EntityPlayer pl1 && Minecraft.getMinecraft().thePlayer.canAttackPlayer(pl1);
@@ -58,7 +59,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 alphaFunc(516, 0.003921569F);
             }
 
-            if (TNTChina.ESP.getState() && enabled && TrueSightAddon.addon.configuration().getEsp().enabled().get().booleanValue() && TrueSightAddon.addon.configuration().getEsp().getEspMode() == EnumESPMode.OUTLINE && EntityUtils.isSelected((Entity) entitylivingbaseIn, attackCheck)) {
+            if (TNTChina.ESP.getState() && enabled && addon.configuration().getEsp().enabled().get().booleanValue() && addon.configuration().getEsp().getEspMode() == EnumESPMode.OUTLINE && EntityUtils.isSelected((Entity) entitylivingbaseIn, attackCheck)) {
                 // WireFrame
                 /*if (entitylivingbaseIn instanceof EntityPlayer al) {
                     TrueSightAddon.addon.logger().info(al.getDisplayName().getFormattedText());
@@ -80,7 +81,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 glEnable(GL_BLEND);
                 glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                 RenderUtils.glColor(EntityUtils.getColor(entitylivingbaseIn));
-                glLineWidth(1.0F);
+                glLineWidth(addon.configuration().getEsp().getLineWidth().get().floatValue());
 
                 this.mainModel.render((Entity) entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
                 glPopAttrib();

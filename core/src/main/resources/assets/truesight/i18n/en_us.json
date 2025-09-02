@@ -21,6 +21,15 @@
         },
         "attackCheck": {
           "name": "Attack Check"
+        },
+        "targetNPC":{
+          "name": "Whether target on NPC"
+        },
+        "entityColor": {
+          "name": "The Color of ESP"
+        },
+        "lineWidth": {
+          "name": "The line width of ESP"
         }
       },
       "truesight": {
