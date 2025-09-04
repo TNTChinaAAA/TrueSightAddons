@@ -36,7 +36,13 @@ public class ESPSubSetting extends Config {
 
   @SettingRequires("enabled")
   @SwitchSetting
-  private final ConfigProperty<Boolean> targetPlayer =  new ConfigProperty<>(Boolean.TRUE);
+  private final ConfigProperty<Boolean> targetPlayer =  new ConfigProperty<>(Boolean.TRUE).addChangeListener((type, oldValue, newValue) -> {
+    if (!newValue.booleanValue()) {
+      if (TrueSightAddon.addon != null) {
+        TrueSightAddon.addon.configuration().getEsp().setOnlyPlayer(false);
+      }
+    }
+  });
 
   @SettingRequires("enabled")
   @SwitchSetting
@@ -92,6 +98,10 @@ public class ESPSubSetting extends Config {
 
   public ConfigProperty<Boolean> getTargetPlayer() {
     return this.targetPlayer;
+  }
+
+  public void setOnlyPlayer(boolean targetPlayer) {
+    this.onlyPlayer.set(Boolean.valueOf(targetPlayer));
   }
 
   public void setTargetPlayer(boolean targetPlayer) {
