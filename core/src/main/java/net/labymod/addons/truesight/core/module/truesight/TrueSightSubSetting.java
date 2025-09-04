@@ -11,13 +11,17 @@ public class TrueSightSubSetting extends Config {
 
   @ShowSettingInParent
   @SwitchSetting
-  private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true).addChangeListener((type, oldValue, newValue) -> {
+  private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(Boolean.TRUE).addChangeListener((type, oldValue, newValue) -> {
     TNTChina.TRUESIGHT.toggle();
   });
 
   @SettingRequires("enabled")
   @SwitchSetting
-  private final ConfigProperty<Boolean> onlyPlayer =  new ConfigProperty<>(true);
+  private final ConfigProperty<Boolean> onlyPlayer =  new ConfigProperty<>(Boolean.TRUE);
+
+  @SettingRequires("enabled")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> targetSpectator =  new ConfigProperty<>(Boolean.FALSE);
 
   public ConfigProperty<Boolean> enabled() {
     return this.enabled;
@@ -25,5 +29,9 @@ public class TrueSightSubSetting extends Config {
 
   public ConfigProperty<Boolean> getOnlyPlayer() {
     return this.onlyPlayer;
+  }
+
+  public ConfigProperty<Boolean> getTargetSpectator() {
+    return this.targetSpectator;
   }
 }

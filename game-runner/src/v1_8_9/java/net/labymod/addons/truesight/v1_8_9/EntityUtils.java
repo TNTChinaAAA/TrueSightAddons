@@ -12,9 +12,9 @@ import net.minecraft.scoreboard.Team;
 import java.awt.*;
 
 public class EntityUtils {
-    public static Minecraft mc = Minecraft.getMinecraft();
+
     public static boolean targetInvisible = true;
-    public static boolean targetPlayer = true;
+    //public static boolean targetPlayer = true;
     public static boolean targetMobs = true;
     public static boolean targetAnimals = false;
     public static boolean targetDead = true;
@@ -34,17 +34,20 @@ public class EntityUtils {
     }
 
     public static boolean isSelected(Entity entity, boolean canAttackCheck) {
-        if (entity instanceof net.minecraft.entity.EntityLivingBase && (targetDead || entity.isEntityAlive()) && entity != mc.thePlayer && (
+        if (entity instanceof net.minecraft.entity.EntityLivingBase && (targetDead || entity.isEntityAlive()) && entity != Minecraft.getMinecraft().thePlayer && (
                 targetInvisible || !entity.isInvisible())) {
+            ESPSubSetting espSubSetting = TrueSightAddon.addon.configuration().getEsp();
 
-            if (targetPlayer && entity instanceof EntityPlayer player) {
-              ESPSubSetting espSubSetting = TrueSightAddon.addon.configuration().getEsp();
+            if (espSubSetting != null) {
+                boolean targetPlayer = espSubSetting.getTargetPlayer().get().booleanValue();
 
-                return (espSubSetting.getTargetNPC().get().booleanValue() || !player.getDisplayName().getFormattedText().contains("[NPC]")) &&
-                    (!espSubSetting.getAttackCheck().get().booleanValue() || canAttackCheck); // && !player.isSpectator()
-
-            } else {
-              if (TrueSightAddon.addon.configuration().getEsp().getOnlyPlayer().get().booleanValue()) return false;
+                if (targetPlayer && entity instanceof EntityPlayer player && entity.getName() != null) {
+                  return (espSubSetting.getTargetNPC().get().booleanValue() || !player.getDisplayName().getFormattedText().contains("[NPC]")) &&
+                      (!espSubSetting.getAttackCheck().get().booleanValue() || canAttackCheck)
+                      && (espSubSetting.getTargetSpectator().get().booleanValue() || !player.isSpectator());
+                } else {
+                  if (TrueSightAddon.addon.configuration().getEsp().getOnlyPlayer().get().booleanValue()) return false;
+                }
             }
 
             return ((targetMobs && isMob(entity)) || (targetAnimals && isAnimal(entity)));
@@ -75,7 +78,7 @@ public class EntityUtils {
             return 0;
         }
 
-        NetworkPlayerInfo networkPlayerInfo = mc.getNetHandler().getPlayerInfo(entityPlayer.getUniqueID());
+        NetworkPlayerInfo networkPlayerInfo = Minecraft.getMinecraft().getNetHandler().getPlayerInfo(entityPlayer.getUniqueID());
         return (networkPlayerInfo == null) ? 0 : networkPlayerInfo.getResponseTime();
     }
 }

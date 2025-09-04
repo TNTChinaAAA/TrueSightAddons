@@ -1,6 +1,7 @@
 package net.labymod.addons.truesight.core.module.esp;
 
 import net.labymod.addons.truesight.core.TNTChina;
+import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SliderWidget.SliderSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.SwitchWidget.SwitchSetting;
 import net.labymod.api.client.gui.screen.widget.widgets.input.color.ColorPickerWidget.ColorPickerSetting;
@@ -15,7 +16,7 @@ public class ESPSubSetting extends Config {
 
   @ShowSettingInParent
   @SwitchSetting
-  private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(true).addChangeListener((type, oldValue, newValue) -> {
+  private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(Boolean.TRUE).addChangeListener((type, oldValue, newValue) -> {
     TNTChina.ESP.toggle();
   });
 
@@ -25,7 +26,17 @@ public class ESPSubSetting extends Config {
 
   @SettingRequires("enabled")
   @SwitchSetting
-  private final ConfigProperty<Boolean> onlyPlayer =  new ConfigProperty<>(Boolean.TRUE);
+  private final ConfigProperty<Boolean> onlyPlayer =  new ConfigProperty<>(Boolean.TRUE).addChangeListener((type, oldValue, newValue) -> {
+    if (newValue.booleanValue()) {
+      if (TrueSightAddon.addon != null) {
+          TrueSightAddon.addon.configuration().getEsp().setTargetPlayer(true);
+      }
+    }
+  });
+
+  @SettingRequires("enabled")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> targetPlayer =  new ConfigProperty<>(Boolean.TRUE);
 
   @SettingRequires("enabled")
   @SwitchSetting
@@ -34,6 +45,10 @@ public class ESPSubSetting extends Config {
   @SettingRequires("enabled")
   @SwitchSetting
   private final ConfigProperty<Boolean> targetNPC =  new ConfigProperty<>(Boolean.FALSE);
+
+  @SettingRequires("enabled")
+  @SwitchSetting
+  private final ConfigProperty<Boolean> targetSpectator =  new ConfigProperty<>(Boolean.FALSE);
 
   @SettingRequires("enabled")
   @ColorPickerSetting
@@ -63,11 +78,23 @@ public class ESPSubSetting extends Config {
     return this.targetNPC;
   }
 
+  public ConfigProperty<Boolean> getTargetSpectator() {
+    return this.targetSpectator;
+  }
+
   public ConfigProperty<Integer> getEntityColor() {
     return this.entityColor;
   }
 
   public ConfigProperty<Float> getLineWidth() {
     return this.lineWidth;
+  }
+
+  public ConfigProperty<Boolean> getTargetPlayer() {
+    return this.targetPlayer;
+  }
+
+  public void setTargetPlayer(boolean targetPlayer) {
+    this.targetPlayer.set(Boolean.valueOf(targetPlayer));
   }
 }

@@ -40,7 +40,9 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
 
         TrueSightSubSetting trueSightSubSetting = addon.configuration().getTrueSight();
         boolean visible = !entitylivingbaseIn.isInvisible();
-        boolean semiVisible = (!visible && (!entitylivingbaseIn.isInvisibleToPlayer((EntityPlayer) (Minecraft.getMinecraft()).thePlayer) || (TNTChina.TRUESIGHT.getState() && enabled && (!trueSightSubSetting.getOnlyPlayer().get().booleanValue() || entitylivingbaseIn instanceof EntityPlayer))));
+        boolean truesight_onlyPlayer = (!trueSightSubSetting.getOnlyPlayer().get().booleanValue()) || entitylivingbaseIn instanceof EntityPlayer;
+        boolean truesight_targetSpectators = trueSightSubSetting.getTargetSpectator().get().booleanValue() || !(entitylivingbaseIn instanceof EntityPlayer tpl1 && tpl1.isSpectator());
+        boolean semiVisible = (!visible && (!entitylivingbaseIn.isInvisibleToPlayer((EntityPlayer) (Minecraft.getMinecraft()).thePlayer) || (TNTChina.TRUESIGHT.getState() && enabled && truesight_onlyPlayer && truesight_targetSpectators)));
         boolean attackCheck = entitylivingbaseIn instanceof EntityPlayer pl1 && Minecraft.getMinecraft().thePlayer.canAttackPlayer(pl1);
 
         //entitylivingbaseIn.

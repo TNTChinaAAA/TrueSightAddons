@@ -19,11 +19,17 @@
         "onlyPlayer": {
           "name": "Only ESP on Players"
         },
+        "targetPlayer":{
+          "name": "Whether target on Players"
+        },
         "attackCheck": {
           "name": "Attack Check"
         },
         "targetNPC":{
           "name": "Whether target on NPC"
+        },
+        "targetSpectator":{
+          "name": "Whether target on Spectators"
         },
         "entityColor": {
           "name": "The Color of ESP"
@@ -36,6 +42,9 @@
         "name": "TrueSight",
         "onlyPlayer": {
           "name": "Only TrueSight on Players"
+        },
+        "targetSpectator":{
+          "name": "Whether target on Spectators"
         }
       },
       "autoTool": {
