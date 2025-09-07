@@ -7,3 +7,5 @@ accessible field net/minecraft/client/renderer/entity/RenderManager renderPosX D
 accessible field net/minecraft/client/renderer/entity/RenderManager renderPosY D
 accessible field net/minecraft/client/renderer/entity/RenderManager renderPosZ D
 accessible field net/minecraft/client/Minecraft timer Lnet/minecraft/util/Timer;
+
+# accessible field net/labymod/api/configuration/loader/property/ConfigProperty setting Lnet/labymod/api/configuration/settings/type/SettingElement;
