@@ -5,15 +5,21 @@
       "enabled": {
         "name": "Enabled"
       },
+      "status": {
+        "name": "Whether render features' status in game GUI"
+      },
       "esp": {
         "name": "ESP",
         "espMode": {
           "name": "ESP Mode",
           "entries": {
             "box": "Box",
+            "otherbox": "Other Box",
             "render2d": "2D",
+            "real2d": "Real 2D",
             "outline": "Outline",
-            "glow": "Glow"
+            "glow": "Glow",
+            "wireframe": "Wireframe"
           }
         },
         "onlyPlayer": {
@@ -54,6 +60,9 @@
         "name": "Mouse Delay Fix"
       },
       "header": {
+        "gui": {
+          "name": "GUI"
+        },
         "features": {
           "name": "Features"
         },

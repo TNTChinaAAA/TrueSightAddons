@@ -45,8 +45,7 @@ public class ClientUtils {
 
                 fastRenderField.setBoolean(mc.gameSettings, false);
             }
-        } catch (IllegalAccessException illegalAccessException) {
-        }
+        } catch (IllegalAccessException illegalAccessException) {}
     }
 
     public static void sendEncryption(NetworkManager networkManager, SecretKey secretKey, PublicKey publicKey, S01PacketEncryptionRequest encryptionRequest) {

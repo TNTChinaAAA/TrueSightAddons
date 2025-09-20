@@ -1,6 +1,9 @@
 package net.labymod.addons.truesight.core;
 
-public class Module {
+import net.labymod.addons.truesight.core.event.EventListener;
+import net.labymod.addons.truesight.core.event.EventManager;
+
+public class Module implements EventListener {
     private boolean state = false;
     private final String name;
     private int key;
@@ -8,6 +11,7 @@ public class Module {
     public Module(String name, int key) {
         this.name = name;
         this.key = key;
+      EventManager.registerListener(this);
     }
 
     public boolean getState() {

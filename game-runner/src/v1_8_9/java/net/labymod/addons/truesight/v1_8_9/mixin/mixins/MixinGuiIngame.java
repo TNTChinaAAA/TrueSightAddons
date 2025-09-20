@@ -27,7 +27,7 @@ public abstract class MixinGuiIngame extends Gui {
         //ClientUtils.getLogger().info(addon.getClass().getName());
 
         if (TrueSightAddon.addon != null) {
-            if (TrueSightAddon.addon.configuration().enabled().get().booleanValue()) {
+            if (TrueSightAddon.addon.configuration().enabled().get().booleanValue() && TrueSightAddon.addon.configuration().getStatus().get().booleanValue()) {
                 ScaledResolution sr = new ScaledResolution(Minecraft.getMinecraft());
                 int width = sr.getScaledWidth();
                 int height = sr.getScaledHeight();

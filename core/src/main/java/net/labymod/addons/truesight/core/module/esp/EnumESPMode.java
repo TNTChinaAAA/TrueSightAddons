@@ -1,5 +1,5 @@
 package net.labymod.addons.truesight.core.module.esp;
 
 public enum EnumESPMode {
-    BOX, RENDER2D, OUTLINE, GLOW;
+  BOX, OTHERBOX, RENDER2D, REAL2D, OUTLINE, GLOW, WIREFRAME;
 }

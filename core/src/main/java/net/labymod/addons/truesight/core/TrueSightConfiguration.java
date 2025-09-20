@@ -15,6 +15,10 @@ public class TrueSightConfiguration extends AddonConfig {
     @SwitchSetting
     private final ConfigProperty<Boolean> enabled = new ConfigProperty<>(Boolean.TRUE);
 
+    @SettingSection("gui")
+    @SwitchSetting
+    private final ConfigProperty<Boolean> status = new ConfigProperty<>(Boolean.TRUE);
+
     @SettingSection("features")
     @SwitchSetting
     private final ConfigProperty<Boolean> autoTool = new ConfigProperty<>(Boolean.FALSE).addChangeListener((type, oldValue, newValue) -> {
@@ -50,5 +54,9 @@ public class TrueSightConfiguration extends AddonConfig {
 
     public ConfigProperty<Boolean> getMouseDelayFix() {
       return this.mouseDelayFix;
+    }
+
+    public ConfigProperty<Boolean> getStatus() {
+      return this.status;
     }
 }

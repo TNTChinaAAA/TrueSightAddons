@@ -1,7 +1,9 @@
 package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
 import net.labymod.addons.truesight.core.TrueSightAddon;
+import net.labymod.addons.truesight.core.event.EventManager;
 import net.labymod.addons.truesight.v1_8_9.DamageUtil;
+import net.labymod.addons.truesight.v1_8_9.handlers.ESPHandlers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
 import net.minecraft.block.material.Material;
@@ -52,6 +54,7 @@ public abstract class MixinMinecraft {
     @Inject(method = "<init>", at = {@At("RETURN")})
     public void init(CallbackInfo callbackInfo) {
         TNTChina.INSTANCE = new TNTChina();
+        EventManager.registerListener(new ESPHandlers());
     }
 
     @Inject(method = "dispatchKeypresses", at = {@At("HEAD")})
