@@ -4,6 +4,7 @@ import net.labymod.addons.truesight.core.TNTChina;
 import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.labymod.addons.truesight.core.event.EventListener;
 import net.labymod.addons.truesight.core.event.EventTarget;
+import net.labymod.addons.truesight.core.event.events.Render3DEvent;
 import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
 import net.labymod.addons.truesight.core.module.esp.EnumESPMode;
 import net.labymod.addons.truesight.core.module.truesight.TrueSightSubSetting;
@@ -27,7 +28,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class ESPHandlers implements EventListener {
 
     @EventTarget
-    public void onRender3D(float partialTicks) {
+    public void onRender3D(Render3DEvent event) {
       Minecraft mc = Minecraft.getMinecraft();
       TrueSightAddon addon = TrueSightAddon.addon;
 
@@ -55,7 +56,7 @@ public class ESPHandlers implements EventListener {
               glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
               enableTexture2D();
               glDepthMask(true);
-              glLineWidth(1f);
+              glLineWidth(espSubSetting.getLineWidth().get().floatValue());
             }
 
             for (Entity entity : mc.theWorld.loadedEntityList) {

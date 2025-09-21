@@ -8,14 +8,14 @@ import java.util.Map;
 
 public class EventManager {
 
-  public static final Map<Class<Event>, List<EventMethod>> EVENT_MAP = new HashMap<>();
-
+  public final Map<Class<Event>, List<EventMethod>> EVENT_MAP = new HashMap<>();
+  public static EventManager INSTANCE;
   /**
    * register the event listener.(注册事件的调用者)
    * @param eventListener
    */
   @SuppressWarnings("unchecked")
-  public static void registerListener(final EventListener eventListener) {
+  public void registerListener(final EventListener eventListener) {
     try {
       for (final Method method : eventListener.getClass().getDeclaredMethods()) {
         if (method.isAnnotationPresent(EventTarget.class) && method.getParameterTypes().length == 1) {
@@ -24,9 +24,9 @@ public class EventManager {
           }
 
           Class<Event> eventClass = (Class<Event>) method.getParameterTypes()[0];
-          List<EventMethod> eventMethods = EventManager.EVENT_MAP.getOrDefault(eventClass, new ArrayList<EventMethod>());
+          List<EventMethod> eventMethods = this.EVENT_MAP.getOrDefault(eventClass, new ArrayList<EventMethod>());
           eventMethods.add(new EventMethod(eventListener, method));
-          EventManager.EVENT_MAP.put(eventClass, eventMethods);
+          this.EVENT_MAP.put(eventClass, eventMethods);
         }
       }
     } catch (Exception e) {
@@ -38,12 +38,12 @@ public class EventManager {
    * invoke event(调用事件)
    * @param event
    */
-  public static void callEvent(Event event) {
+  public void callEvent(Event event) {
     if (event == null) {
       return;
     }
 
-    List<EventMethod> eventMethods = EventManager.EVENT_MAP.getOrDefault(event.getClass(), null);
+    List<EventMethod> eventMethods = this.EVENT_MAP.getOrDefault(event.getClass(), null);
 
     if (eventMethods == null) {
       return;

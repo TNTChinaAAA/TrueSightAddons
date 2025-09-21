@@ -11,7 +11,7 @@ public class Module implements EventListener {
     public Module(String name, int key) {
         this.name = name;
         this.key = key;
-      EventManager.registerListener(this);
+        EventManager.INSTANCE.registerListener(this);
     }
 
     public boolean getState() {

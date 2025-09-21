@@ -13,10 +13,10 @@ public class EventMethod {
   }
 
   public EventListener getEventListener() {
-    return eventListener;
+    return this.eventListener;
   }
 
   public Method getMethod() {
-    return method;
+    return this.method;
   }
 }

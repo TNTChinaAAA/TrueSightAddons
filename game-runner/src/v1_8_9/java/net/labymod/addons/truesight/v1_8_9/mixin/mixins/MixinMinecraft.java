@@ -53,8 +53,9 @@ public abstract class MixinMinecraft {
 
     @Inject(method = "<init>", at = {@At("RETURN")})
     public void init(CallbackInfo callbackInfo) {
+        EventManager.INSTANCE = new EventManager();
+        EventManager.INSTANCE.registerListener(new ESPHandlers());
         TNTChina.INSTANCE = new TNTChina();
-        EventManager.registerListener(new ESPHandlers());
     }
 
     @Inject(method = "dispatchKeypresses", at = {@At("HEAD")})
