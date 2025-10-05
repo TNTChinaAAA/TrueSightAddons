@@ -35,6 +35,10 @@ public class TrueSightConfiguration extends AddonConfig {
     @SwitchSetting
     private final ConfigProperty<Boolean> mouseDelayFix = new ConfigProperty<>(Boolean.TRUE);
 
+    @SettingSection("jumpDelayFix")
+    @SwitchSetting
+    private final ConfigProperty<Boolean> jumpDelayFix = new ConfigProperty<>(Boolean.TRUE);
+
     @Override
     public ConfigProperty<Boolean> enabled() {
         return this.enabled;
@@ -55,6 +59,10 @@ public class TrueSightConfiguration extends AddonConfig {
     public ConfigProperty<Boolean> getMouseDelayFix() {
       return this.mouseDelayFix;
     }
+
+    public ConfigProperty<Boolean> getJumpDelayFix() {
+    return this.jumpDelayFix;
+  }
 
     public ConfigProperty<Boolean> getStatus() {
       return this.status;

@@ -1,17 +1,25 @@
 package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
+import net.labymod.addons.truesight.core.TrueSightAddon;
+import net.labymod.addons.truesight.core.module.TrueSight;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityLivingBase.class)
 public abstract class MixinEntityLivingBase extends Entity {
+
+  @Shadow
+  public int jumpTicks;
 
   public MixinEntityLivingBase(World lvt_1_1_) {
          super(lvt_1_1_);
@@ -22,5 +30,13 @@ public abstract class MixinEntityLivingBase extends Entity {
         if (((EntityLivingBase) (Object) this) instanceof EntityPlayerSP) {
             cir.setReturnValue(super.getLook(partialTicks));
         }
+  }
+
+  @Inject(method = "onLivingUpdate", at = @At("HEAD"))
+  private void headLiving(CallbackInfo ci) {
+    if (TrueSightAddon.addon == null || !TrueSightAddon.addon.configuration().enabled().get().booleanValue()) return;
+    if (!((EntityLivingBase)((Object) this)).equals(Minecraft.getMinecraft().thePlayer)) return;
+
+    if (TrueSightAddon.addon.configuration().getJumpDelayFix().get().booleanValue()) this.jumpTicks = 0;
   }
 }
