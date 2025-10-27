@@ -1,6 +1,7 @@
 package net.labymod.addons.truesight.core;
 
 import net.labymod.addons.truesight.core.commands.*;
+import net.labymod.addons.truesight.core.gpuTape.GpuTapeListener;
 import net.labymod.addons.truesight.core.listener.*;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.models.addon.annotation.AddonMain;
@@ -16,6 +17,7 @@ public class TrueSightAddon extends LabyAddon<TrueSightConfiguration> {
         TrueSightAddon.addon = this;
         TrueSightAddon.settingUpdateEventListener = new ESPSubSettingSettingUpdateEventListener(this);
         this.registerSettingCategory();
+        this.registerListener(new GpuTapeListener());
         this.registerListener(TrueSightAddon.settingUpdateEventListener);
         this.registerListener(new TrueSightGameTickListener(this));
         this.registerCommand(new ExamplePingCommand());

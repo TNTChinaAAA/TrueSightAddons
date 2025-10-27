@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     id("net.labymod.labygradle")
     id("net.labymod.labygradle.addon")
@@ -44,3 +46,8 @@ subprojects {
     group = rootProject.group
     version = rootProject.version
 }
+
+/*
+dependencies {
+    implementation("com.google.guava:guava:33.5.0-jre")
+}*/

@@ -1,7 +1,9 @@
 package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
+import com.google.common.collect.Queues;
 import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.labymod.addons.truesight.core.event.EventManager;
+import net.labymod.addons.truesight.core.gpuTape.GpuTape;
 import net.labymod.addons.truesight.v1_8_9.DamageUtil;
 import net.labymod.addons.truesight.v1_8_9.handlers.ESPHandlers;
 import net.minecraft.block.Block;
@@ -56,6 +58,7 @@ public abstract class MixinMinecraft {
         EventManager.INSTANCE = new EventManager();
         EventManager.INSTANCE.registerListener(new ESPHandlers());
         TNTChina.INSTANCE = new TNTChina();
+        GpuTape.FIXERS = Queues.newConcurrentLinkedQueue();
     }
 
     @Inject(method = "dispatchKeypresses", at = {@At("HEAD")})

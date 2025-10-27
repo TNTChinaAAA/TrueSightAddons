@@ -62,6 +62,9 @@
       "jumpDelayFix": {
         "name": "No Jump Delay"
       },
+      "gpuBooster": {
+        "name": "Whether enable GPUBooster"
+      },
       "header": {
         "gui": {
           "name": "GUI"
@@ -74,6 +77,9 @@
         },
         "jumpDelayFix": {
           "name": "Jump Delay Fix"
+        },
+        "optimization": {
+          "name": "Optimization"
         }
       }
     }
