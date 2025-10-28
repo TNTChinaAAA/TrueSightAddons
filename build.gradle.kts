@@ -8,7 +8,7 @@ plugins {
 val versions = providers.gradleProperty("net.labymod.minecraft-versions").get().split(";")
 
 group = "net.tntchina"
-version = "1.1.2"
+version = "1.1.3"
 
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
 

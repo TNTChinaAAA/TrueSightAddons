@@ -10,11 +10,15 @@
     "defaultRequire": 1
   },
   "client": [
+    "MixinEntityLivingBase",
+    "MixinEntityRenderer",
+    "MixinEntityItem",
+    "MixinFramebuffer",
     "MixinGuiIngame",
+    "MixinItemEnchantedBook",
+    "MixinItemPotion",
     "MixinMinecraft",
     "MixinRender",
-    "MixinRendererLivingEntity",
-    "MixinEntityLivingBase",
-    "MixinEntityRenderer"
+    "MixinRendererLivingEntity"
   ]
 }
