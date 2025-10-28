@@ -53,8 +53,9 @@ public class TrueSightConfiguration extends AddonConfig {
         }
     });
 
-    @SwitchSetting
+    /*@SwitchSetting
     private final ConfigProperty<Boolean> memoryFix = new ConfigProperty<>(Boolean.TRUE);
+    */
 
     @SwitchSetting
     private final ConfigProperty<Boolean> itemOptimizations = new ConfigProperty<>(Boolean.TRUE);
@@ -92,9 +93,9 @@ public class TrueSightConfiguration extends AddonConfig {
       return this.gpuBooster;
     }
 
-    public ConfigProperty<Boolean> getMemoryFix() {
+    /*public ConfigProperty<Boolean> getMemoryFix() {
       return this.memoryFix;
-    }
+    }*/
 
     public ConfigProperty<Boolean> getItemOptimizations() {
       return this.itemOptimizations;

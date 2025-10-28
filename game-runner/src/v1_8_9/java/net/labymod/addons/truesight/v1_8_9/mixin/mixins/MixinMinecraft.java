@@ -53,17 +53,6 @@ public abstract class MixinMinecraft {
     @Shadow
     private ServerData currentServerData;
 
-    @Redirect(method = "*", at = @At(value = "INVOKE", target = "Ljava/lang/System;gc()V"))
-    private void redirectGc() {
-        if (TrueSightAddon.addon == null) {
-            System.gc();
-            return;
-        }
-
-        if (TrueSightAddon.addon.configuration().getMemoryFix().get().booleanValue()) return;
-        System.gc();
-    }
-
     @Inject(method = "<init>", at = {@At("RETURN")})
     public void init(CallbackInfo callbackInfo) {
         EventManager.INSTANCE = new EventManager();

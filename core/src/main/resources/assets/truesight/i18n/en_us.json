@@ -65,9 +65,6 @@
       "gpuBooster": {
         "name": "Whether enable GPUBooster"
       },
-      "memoryFix": {
-        "name": "Whether enable MemoryFix"
-      },
       "itemOptimizations": {
         "name": "Whether enable Item Optimizations"
       },
