@@ -1,7 +1,7 @@
 package net.labymod.addons.truesight.core;
 
 import net.labymod.addons.truesight.core.commands.*;
-import net.labymod.addons.truesight.core.gpuTape.GpuTapeListener;
+import net.labymod.addons.truesight.core.listener.GpuTapeListener;
 import net.labymod.addons.truesight.core.listener.*;
 import net.labymod.api.addon.LabyAddon;
 import net.labymod.api.models.addon.annotation.AddonMain;

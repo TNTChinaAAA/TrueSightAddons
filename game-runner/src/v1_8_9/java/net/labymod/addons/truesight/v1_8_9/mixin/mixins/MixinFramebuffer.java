@@ -67,9 +67,9 @@ public abstract class MixinFramebuffer implements FramebufferFixer, Cleaner.Clea
       return super.toString();
     }
 
-    /*
+
     @Override
     public int hashCode() {
-      return MathHelper.idealHash(this.framebufferTexture + this.depthBuffer + this.framebufferObject);
-    }*/
+      return GpuTape.idealHash(this.framebufferTexture + this.depthBuffer + this.framebufferObject);
+    }
 }

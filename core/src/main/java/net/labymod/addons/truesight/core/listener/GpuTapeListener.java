@@ -1,6 +1,9 @@
-package net.labymod.addons.truesight.core.gpuTape;
+package net.labymod.addons.truesight.core.listener;
 
 import net.labymod.addons.truesight.core.TrueSightAddon;
+import net.labymod.addons.truesight.core.gpuTape.CleanException;
+import net.labymod.addons.truesight.core.gpuTape.FramebufferFixer;
+import net.labymod.addons.truesight.core.gpuTape.GpuTape;
 import net.labymod.api.event.Phase;
 import net.labymod.api.event.Subscribe;
 import net.labymod.api.event.client.lifecycle.GameTickEvent;
@@ -14,9 +17,9 @@ public class GpuTapeListener {
       if (GpuTape.shouldFixOnDisable) {
         if (event.phase() == Phase.POST && GpuTape.FIXERS != null) {
           this.doFix();
+          GpuTape.shouldFixOnDisable = false;
         }
 
-        GpuTape.shouldFixOnDisable = false;
       } else {
         return;
       }

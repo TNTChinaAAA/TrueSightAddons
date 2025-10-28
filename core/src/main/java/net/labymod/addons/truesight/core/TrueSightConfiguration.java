@@ -40,10 +40,15 @@ public class TrueSightConfiguration extends AddonConfig {
     @SwitchSetting
     private final ConfigProperty<Boolean> jumpDelayFix = new ConfigProperty<>(Boolean.TRUE);
 
+    /*@SettingSection("optifineOptimization")
+    @SwitchSetting
+    private final ConfigProperty<Boolean> optifineSkyFix = new ConfigProperty<>(Boolean.FALSE);
+    */
+
     @SettingSection("optimization")
     @SwitchSetting
     private final ConfigProperty<Boolean> gpuBooster = new ConfigProperty<>(Boolean.TRUE).addChangeListener((type, oldValue, newValue) -> {
-        if (!newValue.booleanValue()) {
+        if (oldValue.booleanValue() && !newValue.booleanValue()) {
           GpuTape.shouldFixOnDisable = true;
         }
     });
@@ -80,4 +85,9 @@ public class TrueSightConfiguration extends AddonConfig {
     public ConfigProperty<Boolean> getGpuBooster() {
       return this.gpuBooster;
     }
+
+    /*
+    public ConfigProperty<Boolean> getOptifineSkyFix() {
+      return this.optifineSkyFix;
+    }*/
 }
