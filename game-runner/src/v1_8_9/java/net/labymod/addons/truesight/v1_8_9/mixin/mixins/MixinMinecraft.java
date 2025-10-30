@@ -5,6 +5,7 @@ import net.labymod.addons.truesight.core.TrueSightAddon;
 import net.labymod.addons.truesight.core.event.EventManager;
 import net.labymod.addons.truesight.core.gpuTape.GpuTape;
 import net.labymod.addons.truesight.v1_8_9.DamageUtil;
+import net.labymod.addons.truesight.v1_8_9.handlers.CleanViewHandlers;
 import net.labymod.addons.truesight.v1_8_9.handlers.ESPHandlers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockChest;
@@ -59,6 +60,7 @@ public abstract class MixinMinecraft {
         EventManager.INSTANCE.registerListener(new ESPHandlers());
         TNTChina.INSTANCE = new TNTChina();
         GpuTape.FIXERS = Queues.newConcurrentLinkedQueue();
+        TrueSightAddon.cleanView = new CleanViewHandlers();
     }
 
     @Inject(method = "dispatchKeypresses", at = {@At("HEAD")})

@@ -68,6 +68,9 @@
       "itemOptimizations": {
         "name": "Whether enable Item Optimizations"
       },
+      "cleanView": {
+        "name": "Whether enable Clean View"
+      },
       "header": {
         "gui": {
           "name": "GUI"

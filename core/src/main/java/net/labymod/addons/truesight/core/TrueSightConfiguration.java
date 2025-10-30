@@ -60,6 +60,9 @@ public class TrueSightConfiguration extends AddonConfig {
     @SwitchSetting
     private final ConfigProperty<Boolean> itemOptimizations = new ConfigProperty<>(Boolean.TRUE);
 
+    @SwitchSetting
+    private final ConfigProperty<Boolean> cleanView = new ConfigProperty<>(Boolean.TRUE);
+
     @Override
     public ConfigProperty<Boolean> enabled() {
         return this.enabled;
@@ -99,6 +102,10 @@ public class TrueSightConfiguration extends AddonConfig {
 
     public ConfigProperty<Boolean> getItemOptimizations() {
       return this.itemOptimizations;
+    }
+
+    public ConfigProperty<Boolean> getCleanView() {
+      return this.cleanView;
     }
 
     /*

@@ -11,12 +11,14 @@ public class TrueSightAddon extends LabyAddon<TrueSightConfiguration> {
 
     public static TrueSightAddon addon;
     public static ESPSubSettingSettingUpdateEventListener settingUpdateEventListener;
+    public static CleanView cleanView;
 
     @Override
     protected void enable() {
         TrueSightAddon.addon = this;
         TrueSightAddon.settingUpdateEventListener = new ESPSubSettingSettingUpdateEventListener(this);
         this.registerSettingCategory();
+        this.registerListener(new CleanViewListener());
         this.registerListener(new GpuTapeListener());
         this.registerListener(TrueSightAddon.settingUpdateEventListener);
         this.registerListener(new TrueSightGameTickListener(this));
