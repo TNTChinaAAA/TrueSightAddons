@@ -63,7 +63,10 @@
         "name": "No Jump Delay"
       },
       "gpuBooster": {
-        "name": "Whether enable GPUBooster"
+        "name": "Whether enable GPUBooster",
+        "shouldIdealHash": {
+          "name": "Whether use Ideal hash to accelerate World generation"
+        }
       },
       "itemOptimizations": {
         "name": "Whether enable Item Optimizations"

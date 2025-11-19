@@ -1,5 +1,6 @@
 package net.labymod.addons.truesight.core;
 
+import net.labymod.addons.truesight.core.gpuTape.GPUBoosterSubSetting;
 import net.labymod.addons.truesight.core.gpuTape.GpuTape;
 import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
 import net.labymod.addons.truesight.core.module.truesight.TrueSightSubSetting;
@@ -47,11 +48,7 @@ public class TrueSightConfiguration extends AddonConfig {
 
     @SettingSection("optimization")
     @SwitchSetting
-    private final ConfigProperty<Boolean> gpuBooster = new ConfigProperty<>(Boolean.TRUE).addChangeListener((type, oldValue, newValue) -> {
-        if (oldValue.booleanValue() && !newValue.booleanValue()) {
-          GpuTape.shouldFixOnDisable = true;
-        }
-    });
+    private final GPUBoosterSubSetting gpuBooster = new GPUBoosterSubSetting();
 
     /*@SwitchSetting
     private final ConfigProperty<Boolean> memoryFix = new ConfigProperty<>(Boolean.TRUE);
@@ -92,7 +89,7 @@ public class TrueSightConfiguration extends AddonConfig {
       return this.status;
     }
 
-    public ConfigProperty<Boolean> getGpuBooster() {
+    public GPUBoosterSubSetting getGpuBooster() {
       return this.gpuBooster;
     }
 

@@ -13,7 +13,7 @@ public class GpuTapeListener {
   @Subscribe
   public void onTick(GameTickEvent event) {
     if (TrueSightAddon.addon == null) return;
-    if (!TrueSightAddon.addon.configuration().getGpuBooster().get()) {
+    if (!TrueSightAddon.addon.configuration().getGpuBooster().enabled().get().booleanValue()) {
       if (GpuTape.shouldFixOnDisable) {
         if (event.phase() == Phase.POST && GpuTape.FIXERS != null) {
           this.doFix();

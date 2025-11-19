@@ -59,7 +59,7 @@ public abstract class MixinFramebuffer implements FramebufferFixer, Cleaner.Clea
     @Override
     public String toString() {
       if (TrueSightAddon.addon != null) {
-        if (TrueSightAddon.addon.configuration().getGpuBooster().get().booleanValue()) {
+        if (TrueSightAddon.addon.configuration().getGpuBooster().enabled().get().booleanValue()) {
           return "FrB(" + this.framebufferTexture + ", " + this.depthBuffer + ", " + this.framebufferObject + ")";
         }
       }
@@ -70,6 +70,7 @@ public abstract class MixinFramebuffer implements FramebufferFixer, Cleaner.Clea
 
     @Override
     public int hashCode() {
+      if (TrueSightAddon.addon == null || !TrueSightAddon.addon.configuration().getGpuBooster().getShouldIdealHash().get().booleanValue()) { return super.hashCode(); }
       return GpuTape.idealHash(this.framebufferTexture + this.depthBuffer + this.framebufferObject);
     }
 }
