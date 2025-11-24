@@ -16,8 +16,8 @@ public class TNTChina {
     public static final String MOD_MODID = "true-sight";
     public static final String MOD_URL = "https://github.com/TNTChinaAAA/TrueSightAddons";
     public static final AutoTool AUTOTOOL = new AutoTool("AutoTool",36);
-    public static final ESP ESP = new ESP("ESP", 38);
-    public static final TrueSight TRUESIGHT = new TrueSight("TrueSight", 35);
+    public static final ESP ESP = new ESP("ESP", 0);
+    public static final TrueSight TRUESIGHT = new TrueSight("TrueSight", 0);
     public static TNTChina INSTANCE;
     public static Map<Module, ConfigProperty<Boolean>> RENDER_MODULES_MAP = new HashMap<>();
     public static List<Module> MODULES = new ArrayList<>();
