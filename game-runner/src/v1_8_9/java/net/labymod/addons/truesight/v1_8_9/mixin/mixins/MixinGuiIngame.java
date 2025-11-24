@@ -1,6 +1,7 @@
 package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
 import net.labymod.addons.truesight.core.TrueSightAddon;
+import net.labymod.addons.truesight.core.module.antiblind.AntiBlindSubSetting;
 import net.labymod.addons.truesight.v1_8_9.GuiUtil;
 import net.labymod.addons.truesight.core.Module;
 import net.labymod.addons.truesight.core.TNTChina;
@@ -51,5 +52,14 @@ public abstract class MixinGuiIngame extends Gui {
                 GlStateManager.popMatrix();
             }
         }
+    }
+
+    @Inject(method = "renderPumpkinOverlay", at = @At("HEAD"), cancellable = true)
+    private void renderPumpkinOverlay(final CallbackInfo callbackInfo) {
+      if (TrueSightAddon.addon != null) {
+        AntiBlindSubSetting antiBlind = TrueSightAddon.addon.configuration().getAntiBlind();
+
+        if (antiBlind.enabled().get().booleanValue() && antiBlind.getPumpkinEffect().get().booleanValue()) callbackInfo.cancel();
+      }
     }
 }

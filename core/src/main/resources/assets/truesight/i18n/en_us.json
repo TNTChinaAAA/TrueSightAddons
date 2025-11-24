@@ -53,6 +53,18 @@
           "name": "Whether target on Spectators"
         }
       },
+      "antiBlind": {
+        "name": "AntiBlind",
+        "confusionEffect": {
+         "name": "Whether antiBlind when confusion effect comes."
+        },
+        "pumpkinEffect": {
+          "name": "Whether antiBlind when pumpkin effect comes."
+        },
+        "fireEffect": {
+          "name": "Whether antiBlind when fire effect comes."
+        }
+      },
       "autoTool": {
         "name": "AutoTool"
       },

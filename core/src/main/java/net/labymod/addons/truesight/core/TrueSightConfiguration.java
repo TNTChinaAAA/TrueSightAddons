@@ -2,6 +2,7 @@ package net.labymod.addons.truesight.core;
 
 import net.labymod.addons.truesight.core.gpuTape.GPUBoosterSubSetting;
 import net.labymod.addons.truesight.core.gpuTape.GpuTape;
+import net.labymod.addons.truesight.core.module.antiblind.AntiBlindSubSetting;
 import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
 import net.labymod.addons.truesight.core.module.truesight.TrueSightSubSetting;
 import net.labymod.api.addon.AddonConfig;
@@ -32,6 +33,9 @@ public class TrueSightConfiguration extends AddonConfig {
 
     @SwitchSetting
     private final TrueSightSubSetting truesight = new TrueSightSubSetting();
+
+    @SwitchSetting
+    private final AntiBlindSubSetting antiBlind = new AntiBlindSubSetting();
 
     @SettingSection("mouseDelayFix")
     @SwitchSetting
@@ -72,6 +76,8 @@ public class TrueSightConfiguration extends AddonConfig {
     public TrueSightSubSetting getTrueSight() {
       return this.truesight;
     }
+
+    public AntiBlindSubSetting getAntiBlind() { return this.antiBlind; }
 
     public ConfigProperty<Boolean> getAutoTool() {
       return this.autoTool;
