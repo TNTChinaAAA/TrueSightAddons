@@ -2,6 +2,7 @@ package net.labymod.addons.truesight.v1_8_9.mixin.mixins;
 
 import java.awt.Color;
 import net.labymod.addons.truesight.core.TrueSightAddon;
+import net.labymod.addons.truesight.core.module.esp.ESPSubSetting;
 import net.labymod.addons.truesight.core.module.esp.EnumESPMode;
 import net.labymod.addons.truesight.core.module.truesight.TrueSightSubSetting;
 import net.labymod.addons.truesight.v1_8_9.ClientUtils;
@@ -15,8 +16,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.labymod.addons.truesight.v1_8_9.EntityUtils;
 import net.labymod.addons.truesight.core.TNTChina;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import static net.minecraft.client.renderer.GlStateManager.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -32,8 +35,8 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
      * @author TNTChina
      * @reason Render model
      */
-    @Overwrite
-    protected <T extends net.minecraft.entity.EntityLivingBase> void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor) {
+    @Inject(method = "renderModel", at = @At("HEAD"), cancellable = true)
+    protected <T extends net.minecraft.entity.EntityLivingBase> void renderModel(T entitylivingbaseIn, float p_77036_2_, float p_77036_3_, float p_77036_4_, float p_77036_5_, float p_77036_6_, float scaleFactor, CallbackInfo ci) {
         boolean enabled = false;
         TrueSightAddon addon = TrueSightAddon.addon;
 
@@ -42,6 +45,9 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
         }
 
         TrueSightSubSetting trueSightSubSetting = addon.configuration().getTrueSight();
+        ESPSubSetting espSubSetting = addon.configuration().getEsp();
+        if (!enabled || (!trueSightSubSetting.enabled().get().booleanValue() && !espSubSetting.enabled().get().booleanValue()) || (!trueSightSubSetting.enabled().get().booleanValue() && espSubSetting.getEspMode() != EnumESPMode.OUTLINE && espSubSetting.getEspMode() != EnumESPMode.WIREFRAME)) return;
+
         boolean visible = !entitylivingbaseIn.isInvisible();
         boolean truesight_onlyPlayer = (!trueSightSubSetting.getOnlyPlayer().get().booleanValue()) || entitylivingbaseIn instanceof EntityPlayer;
         boolean truesight_targetSpectators = trueSightSubSetting.getTargetSpectator().get().booleanValue() || !(entitylivingbaseIn instanceof EntityPlayer tpl1 && tpl1.isSpectator());
@@ -64,7 +70,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 alphaFunc(516, 0.003921569F);
             }
 
-            if (TNTChina.ESP.getState() && enabled && addon.configuration().getEsp().enabled().get().booleanValue() && EntityUtils.isSelected((Entity) entitylivingbaseIn, attackCheck)) {
+            if (TNTChina.ESP.getState() && enabled && espSubSetting.enabled().get().booleanValue() && EntityUtils.isSelected((Entity) entitylivingbaseIn, attackCheck)) {
                 // WireFrame
                 /*if (entitylivingbaseIn instanceof EntityPlayer al) {
                     TrueSightAddon.addon.logger().info(al.getDisplayName().getFormattedText());
@@ -87,7 +93,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                       glEnable(GL_BLEND);
                       glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
                       RenderUtils.glColor(EntityUtils.getColor(entitylivingbaseIn));
-                      glLineWidth(addon.configuration().getEsp().getLineWidth().get().floatValue());
+                      glLineWidth(espSubSetting.getLineWidth().get().floatValue());
                       this.mainModel.render((Entity) entitylivingbaseIn, p_77036_2_, p_77036_3_, p_77036_4_, p_77036_5_, p_77036_6_, scaleFactor);
                       glPopAttrib();
                       glPopMatrix();
@@ -127,5 +133,7 @@ public abstract class MixinRendererLivingEntity extends MixinRender {
                 depthMask(true);
             }
         }
+
+        ci.cancel();
     }
 }
