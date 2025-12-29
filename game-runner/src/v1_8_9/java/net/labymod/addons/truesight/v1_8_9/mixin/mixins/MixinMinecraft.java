@@ -26,6 +26,7 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.At.Shift;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -137,49 +138,12 @@ public abstract class MixinMinecraft {
     }
   }
 
-  @Inject(method = "clickMouse", at = {@At("RETURN")})
+  @Inject(method = "clickMouse", at = {@At("HEAD")})
   private void onClickMouse(CallbackInfo callbackInfo) {
-    if (this.leftClickCounter <= 0) {
-      boolean enable = false, autoTool_enable = false;
-
-      if (TrueSightAddon.addon != null) {
-        if (TrueSightAddon.addon.configuration() != null) {
-          enable = TrueSightAddon.addon.configuration().enabled().get().booleanValue();
-          autoTool_enable = TrueSightAddon.addon.configuration().getAutoTool().get().booleanValue();
-        }
-      }
-
-      if (enable && autoTool_enable) {
-        if (objectMouseOver.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
-          //logger.info("EntityNameAAA: " + objectMouseOver.entityHit.getName());
-
-          if (objectMouseOver.entityHit instanceof EntityLivingBase) {
-            double bestSpeed = 1;
-            int bestSlot = -1;
-
-            for (int i = 0; i <= 8; i++) {
-              ItemStack item = thePlayer.inventory.getStackInSlot(i);
-
-              if (item == null) {
-                continue;
-              }
-
-              double speed = DamageUtil.getTotalDamage(item, thePlayer, (EntityLivingBase) objectMouseOver.entityHit);
-
-              if (speed > bestSpeed) {
-                bestSpeed = speed;
-                bestSlot = i;
-              }
-
-              //logger.info("Damage After Calculating: " + DamageUtil.getTotalDamage(item, thePlayer, (EntityLivingBase) objectMouseOver.entityHit));
-            }
-
-            logger.info("Damage: " + bestSpeed);
-
-            if (bestSlot != -1) {
-              thePlayer.inventory.currentItem = bestSlot;
-            }
-          }
+    if (TrueSightAddon.addon != null) {
+      if (TrueSightAddon.addon.configuration() != null) {
+        if (TrueSightAddon.addon.configuration().getMouseDelayFix().get().booleanValue()) {
+          leftClickCounter = 0;
         }
       }
     }
@@ -207,6 +171,10 @@ public abstract class MixinMinecraft {
       if (TrueSightAddon.addon.configuration() != null) {
         enable = TrueSightAddon.addon.configuration().enabled().get().booleanValue();
         autoTool_enable = TrueSightAddon.addon.configuration().getAutoTool().get().booleanValue();
+
+        if (TrueSightAddon.addon.configuration().getMouseDelayFix().get().booleanValue()) {
+          leftClickCounter = 0;
+        }
       }
     }
 
@@ -215,7 +183,7 @@ public abstract class MixinMinecraft {
         //logger.info("EntityNameAAA: " + objectMouseOver.entityHit.getName());
 
         if (objectMouseOver.entityHit instanceof EntityLivingBase) {
-          int bestDamage = 1;
+          double bestDamage = 1;
           int bestSlot = -1;
 
           for (int i = 0; i <= 8; i++) {
@@ -225,10 +193,10 @@ public abstract class MixinMinecraft {
               continue;
             }
 
-            int damage = item.getMaxDamage();
+            double speed = DamageUtil.getTotalDamage(item, thePlayer, (EntityLivingBase) objectMouseOver.entityHit);
 
-            if (damage > bestDamage) {
-              bestDamage = damage;
+            if (speed > bestDamage) {
+              bestDamage = speed;
               bestSlot = i;
             }
 
